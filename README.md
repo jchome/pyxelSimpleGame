@@ -1,4 +1,14 @@
 # pyxelSimpleGame
-First simple game with Pyxel
+My first simple game with Pyxel
 
-![First screenshot](Screenshot-01.png)
+## Implemented
+* Structure of classes
+* Animation of the rabbit
+* Some sprites
+
+## Todo
+* Map mapping with tiles
+* Collision detection
+* More srpites
+
+![First screenshot](Screenshot-02.png)
