@@ -3,12 +3,13 @@ My first simple game with Pyxel
 
 ## Implemented
 * Structure of classes
-* Animation of the rabbit
+* Animation
 * Some sprites
+* Collision detection
+* Srpite of character
 
 ## Todo
 * Map mapping with tiles
-* Collision detection
-* More srpites
+* More sprites
 
 ![First screenshot](Screenshot-02.png)
