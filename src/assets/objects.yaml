@@ -1,0 +1,38 @@
+DUST:
+  sprites:
+    - 34,48,12,8
+    - 34,56, 12,8
+    - 35,64,12,8
+  width: 16
+  height: 16
+
+FLOWER:
+  sprites:
+    - 16,48,16,16
+  width: 16
+  height: 16
+
+COIN:
+  sprites:
+    - 0,48,10,10
+    - 0,58,10,10
+    - 0,68,10,10
+    - 0,58,10,10
+  width: 10
+  height: 10
+  velocity: 1
+  loop-animation: True
+
+COIN-BONUS:
+  sprites:
+    - 0,80,10,10
+    - 0,90,10,10
+    - 0,100,10,10
+    - 0,90,10,10
+    - 0,80,10,10
+    - 0,90,10,10
+    - 0,100,10,10
+  width: 10
+  height: 10
+  velocity: 5
+  loop-animation: False

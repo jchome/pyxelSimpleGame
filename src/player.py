@@ -1,28 +1,36 @@
 
 import pyxel
+import yaml
 
 TRANSPARENT_COLOR = 15
 TILE_SIZE = 16
 
 class Player:
-    def __init__(self, tile_x,tile_y):
-        self.pos_x = tile_x * TILE_SIZE
-        self.pos_y = tile_y * TILE_SIZE
-        self.width = 12
-        self.height = 16
-        ## Velocity of 1 = small speed, 2 = great speed, 3 = running fast
-        self.velocity = 1
+    def __init__(self, pos_x,pos_y):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
         self.direction = "UP"
         ## Detect when the player is running, to start the animation
         self.is_running = False
         self.animation_flow = 0 # Float version of the animation step
-        self.sprites = {
-            "LEFT":     [(0,32,-12,16), (0,16,-12,16), (0,0,-12,16), (0,16,-12,16), (0,32,-12,16)],
-            "RIGHT":    [(0,32,12,16), (0,16,12,16), (0,0,12,16), (0,16,12,16), (0,32,12,16)],
-            "UP":       [(16,32,12,16), (16,16,12,16), (16,0,-12,16), (16,16,-12,16), (16,0,-12,16)],
-            "DOWN":     [(32,32,12,16), (32,16,12,16), (32,0,-12,16), (32,16,-12,16), (32,0,-12,16)]
-        }
-        
+        self.read_configuration()
+
+    def read_configuration(self):
+        with open(r'src/assets/player.yaml') as file:
+            player_data = yaml.load(file)["player"]
+            self.width = player_data["width"]
+            self.height = player_data["height"]
+            self.velocity = player_data["velocity"]
+            self.sprites = {}
+            for sprite_data in player_data["sprites"]:
+                direction = sprite_data.upper()
+                sprites_for_one_direction = player_data["sprites"][sprite_data]
+                data_for_direction = []
+                for coordinates_str in sprites_for_one_direction:
+                    coordinate_array = coordinates_str.split(',')
+                    coordinate_converted = [int(x) for x in coordinate_array]
+                    data_for_direction.append(coordinate_converted)
+                self.sprites[direction] = data_for_direction
 
     """Get key pressed
     """
@@ -68,6 +76,7 @@ class Player:
         ## Cut the sprite in the image bank #0
         u,v,w,h = self.sprites[self.direction][int(self.animation_flow)]
         
+        #self._draw_bounding_box()
         #bltm(x on screen, y on screen, image map, u, v, w, h, [colkey])
         pyxel.blt(self.pos_x,self.pos_y, image_bank, u,v, w,h, TRANSPARENT_COLOR)
         
@@ -85,7 +94,12 @@ class Player:
         #    u,v,w,h = self.sprites["DUST"][int(self.dust_flow)]
         #    pyxel.blt(self.pos_x,self.pos_y, image_bank, u,v, w,h, TRANSPARENT_COLOR)
         #pyxel.text(100,80, self.direction, 0)
+        
     
+    """Draw the bounding box around the player
+    """
+    def _draw_bounding_box(self):
+        pyxel.rectb(self.pos_x,self.pos_y, self.width, self.height, 3)
     
 
     """AABB detection
