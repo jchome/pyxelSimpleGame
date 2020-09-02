@@ -1,7 +1,7 @@
 DUST:
   sprites:
     - 34,48,12,8
-    - 34,56, 12,8
+    - 34,56,12,8
     - 35,64,12,8
   width: 16
   height: 16
@@ -12,6 +12,12 @@ FLOWER:
   width: 16
   height: 16
 
+BUSH:
+  sprites:
+    - 49,0,14,13
+  width: 14
+  height: 13
+
 COIN:
   sprites:
     - 0,48,10,10
@@ -20,7 +26,7 @@ COIN:
     - 0,58,10,10
   width: 10
   height: 10
-  velocity: 1
+  velocity: 0.25
   loop-animation: True
 
 COIN-BONUS:
@@ -34,5 +40,5 @@ COIN-BONUS:
     - 0,100,10,10
   width: 10
   height: 10
-  velocity: 5
+  velocity: 1
   loop-animation: False

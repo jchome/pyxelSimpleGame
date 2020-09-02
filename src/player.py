@@ -32,12 +32,24 @@ class Player:
                     data_for_direction.append(coordinate_converted)
                 self.sprites[direction] = data_for_direction
 
+    def detect_wall(self, walls, old_x, old_y):
+        for wall in walls:
+            if self.detect_collision(wall):
+                self.pos_x = old_x
+                self.pos_y = old_y
+
+
     """Get key pressed
     """
-    def update(self):
+    def update(self, walls_objects):
         ## Update the direction of the player
+        old_x = self.pos_x
+        old_y = self.pos_y
+        player_is_moving = False
         if pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.GAMEPAD_1_LEFT):
+            player_is_moving = True
             self.pos_x = max(self.pos_x - self.velocity, 0)
+            self.detect_wall(walls_objects, old_x, old_y)
             self.direction = "LEFT"
             if not self.is_running:
                 self.is_running = True
@@ -45,7 +57,9 @@ class Player:
                 self.animation_flow = 0
 
         if pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD_1_RIGHT):
+            player_is_moving = True
             self.pos_x = min(self.pos_x + self.velocity, pyxel.width - 16)
+            self.detect_wall(walls_objects, old_x, old_y)
             self.direction = "RIGHT"
             if not self.is_running:
                 self.is_running = True
@@ -53,7 +67,9 @@ class Player:
                 self.animation_flow = 0
 
         if pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD_1_UP):
+            player_is_moving = True
             self.pos_y = max(self.pos_y - self.velocity, 0)
+            self.detect_wall(walls_objects, old_x, old_y)
             self.direction = "UP"
             if not self.is_running:
                 self.is_running = True
@@ -61,12 +77,17 @@ class Player:
                 self.animation_flow = 0
 
         if pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.GAMEPAD_1_DOWN):
+            player_is_moving = True
             self.pos_y = min(self.pos_y + self.velocity, pyxel.width - 16)
+            self.detect_wall(walls_objects, old_x, old_y)
             self.direction = "DOWN"
             if not self.is_running:
                 self.is_running = True
                 ## Force to restart the animation to frame #0
                 self.animation_flow = 0
+        if not player_is_moving:
+            self.is_running = False
+            self.animation_flow = 0
 
     """Draw the player
     Use "pyxeleditor game.pyxres" to edit the player sprite

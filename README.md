@@ -5,8 +5,8 @@ My first simple game with Pyxel
 * Structure of classes
 * Animation
 * Some sprites
-* Collision detection
-* Srpite of character
+* Collision detection ++
+* Sprite of character
 
 ## Todo
 * Map mapping with tiles

@@ -17,16 +17,14 @@ TRANSPARENT_COLOR = 15
 
 class PlayGround:
     def __init__(self):
-        #self.sprite_v_h = (16,16)
-        #self.flowers = (16,64)
-        #self.grass = (16,80)
-        #self.salad = (16,96)
-        #self.big_flower = (16,48)
+        self.background_objects = []
 
-        flower = ObjectOnGame("FLOWER", 5,5)
+        flower = ObjectOnGame("FLOWER")
         flower.pos_x = 5 * TILE_SIZE
         flower.pos_y = 5 * TILE_SIZE
-        self.background_objects = [flower]
+        self.background_objects.append(flower)
+
+        
     
     def update(self):
         ## There is no interaction with these objects
