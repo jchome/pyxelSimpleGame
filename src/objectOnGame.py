@@ -29,10 +29,15 @@ class ObjectOnGame:
                 self.velocity = object_data["velocity"]
             if "loop-animation" in object_data:
                 self._loop_animation = object_data["loop-animation"]
+            
+            if "footprint" in object_data:
+                self.footprint = self._get_coordinates(object_data["footprint"])
+            else:
+                self.footprint = (0,0,16,16) # default footprint
+
             self._sprites = []
             for coordinates_str in object_data["sprites"]:
-                coordinate_array = coordinates_str.split(',')
-                coordinate_converted = [int(x) for x in coordinate_array]
+                coordinate_converted = self._get_coordinates(coordinates_str)
                 self._sprites.append(coordinate_converted)
 
     @property
@@ -46,6 +51,12 @@ class ObjectOnGame:
         if not self._is_visible:
             self._animation_flow = 0
     
+    """Cut the string_of_4_int as "a,b,c,d" and convert as array of int
+    """
+    def _get_coordinates(self, string_of_4_int):
+        coordinate_array = string_of_4_int.split(',')
+        return [int(x) for x in coordinate_array]
+
     """Get key pressed
     """
     def update(self):
@@ -66,6 +77,9 @@ class ObjectOnGame:
         #self._draw_bounding_box()
         #bltm(x on screen, y on screen, image map, u, v, w, h, [colkey])
         pyxel.blt(self.pos_x,self.pos_y, image_bank, u,v, w,h, TRANSPARENT_COLOR)
+
+        ### Draw the footprint, to check coordinates
+        #pyxel.rectb(self.pos_x+self.footprint[0],self.pos_y+self.footprint[1],self.footprint[2],self.footprint[3],8)
 
         ## Animate the sprite
         if len( self._sprites) == 1:

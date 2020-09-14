@@ -13,7 +13,9 @@ from objectOnGame import ObjectOnGame
 
 TILE_SIZE = 16
 BACKGROUND_COLOR = 11
+SHADOW_COLOR = 3
 TRANSPARENT_COLOR = 15
+
 
 class PlayGround:
     def __init__(self):
@@ -38,9 +40,7 @@ class PlayGround:
         #    pyxel.line(i*TILE_SIZE, 0, i*TILE_SIZE , pyxel.height, 0)
         #for j in range(0, int(pyxel.height / TILE_SIZE)):
         #    pyxel.line(0, j*TILE_SIZE, pyxel.width, j*TILE_SIZE, 0)
-
-        for simple_object in self.background_objects:
-            simple_object.draw()
+        
     
     def get_random_position(self):
         # Snap on the grid of size TILE_SIZE

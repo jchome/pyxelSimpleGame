@@ -13,7 +13,7 @@ from playground import PlayGround
 from player import Player
 from objectOnGame import ObjectOnGame
 
-TILE_SIZE = 16
+TILE_SIZE = 8
 
 class Game:
     
@@ -26,14 +26,16 @@ class Game:
         self.playground = PlayGround()
         self.player = Player(2 * TILE_SIZE, 2 * TILE_SIZE)
 
-        coin = ObjectOnGame("COIN", 3 * TILE_SIZE, 3 * TILE_SIZE)
-        coin.width = 10
-        coin.height = 10
+        coin = ObjectOnGame("COIN", 8 * TILE_SIZE, 5 * TILE_SIZE)
         self.interaction_objects.append(coin)
 
-        bush = ObjectOnGame("BUSH", 5 * TILE_SIZE, 3 * TILE_SIZE)
-        self.walls.append(bush)
+        bush_1 = ObjectOnGame("BUSH", 5 * TILE_SIZE, 3 * TILE_SIZE)
+        self.walls.append(bush_1)
 
+        bush_2 = ObjectOnGame("BUSH", 5 * TILE_SIZE, 4 * TILE_SIZE)
+        self.walls.append(bush_2)
+        bush_3 = ObjectOnGame("BUSH", 5 * TILE_SIZE, 5 * TILE_SIZE)
+        self.walls.append(bush_3)
 
         # Run the main loop
         pyxel.run(self.update, self.draw)
@@ -71,16 +73,16 @@ class Game:
     """Draw objects in the screen
     """
     def draw(self):
+        ## Empty the screen
         self.playground.draw()
 
-        for simple_object in self.interaction_objects:
-            simple_object.draw()
+        ## Draw all objects ...
+        all_objects = self.interaction_objects + self.walls + self.playground.background_objects
+        all_objects.append(self.player)
 
-        for wall_object in self.walls:
-            wall_object.draw()
-
-        # Draw the player at the end
-        self.player.draw()
+        ## ... BUT sorted by the position on the screen
+        for an_object in sorted(all_objects, key=lambda obj: obj.pos_y + obj.footprint[1], reverse=False):
+            an_object.draw()
     
         
 Game()

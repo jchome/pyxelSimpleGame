@@ -3,6 +3,7 @@ player:
   height: 16
   ## Velocity of 1 = small speed, 2 = great speed, 3 = running fast
   velocity: 1
+  footprint: 2,9,8,8
   sprites:
     LEFT: 
       - 0,32,-12,16

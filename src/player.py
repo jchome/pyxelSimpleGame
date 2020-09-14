@@ -21,16 +21,26 @@ class Player:
             self.width = player_data["width"]
             self.height = player_data["height"]
             self.velocity = player_data["velocity"]
+            if "footprint" in player_data:
+                self.footprint = self._get_coordinates(player_data["footprint"])
+            else:
+                self.footprint = (0,0,16,16) # default footprint
+            
             self.sprites = {}
             for sprite_data in player_data["sprites"]:
                 direction = sprite_data.upper()
                 sprites_for_one_direction = player_data["sprites"][sprite_data]
                 data_for_direction = []
                 for coordinates_str in sprites_for_one_direction:
-                    coordinate_array = coordinates_str.split(',')
-                    coordinate_converted = [int(x) for x in coordinate_array]
+                    coordinate_converted = self._get_coordinates(coordinates_str)
                     data_for_direction.append(coordinate_converted)
                 self.sprites[direction] = data_for_direction
+
+    """Cut the string_of_4_int as "a,b,c,d" and convert as array of int
+    """
+    def _get_coordinates(self, string_of_4_int):
+        coordinate_array = string_of_4_int.split(',')
+        return [int(x) for x in coordinate_array]
 
     def detect_wall(self, walls, old_x, old_y):
         for wall in walls:
@@ -115,6 +125,9 @@ class Player:
         #    u,v,w,h = self.sprites["DUST"][int(self.dust_flow)]
         #    pyxel.blt(self.pos_x,self.pos_y, image_bank, u,v, w,h, TRANSPARENT_COLOR)
         #pyxel.text(100,80, self.direction, 0)
+
+        ## Draw the footprint, to check coordinates
+        #pyxel.rectb(self.pos_x+self.footprint[0],self.pos_y+self.footprint[1],self.footprint[2],self.footprint[3],8)
         
     
     """Draw the bounding box around the player
@@ -124,10 +137,18 @@ class Player:
     
 
     """AABB detection
-    """
-    def detect_collision(self, another_object):
+    Use the footprint
         if self.pos_x < another_object.pos_x+another_object.width and self.pos_x+self.width > another_object.pos_x:
             if self.pos_y < another_object.pos_y+another_object.height and self.pos_y+self.height > another_object.pos_y:
+
+    """
+    def detect_collision(self, another_object):
+        player_pos_x = self.pos_x+self.footprint[0]
+        player_pos_y = self.pos_y+self.footprint[1]
+        another_object_pos_x = another_object.pos_x+another_object.footprint[0]
+        another_object_pos_y = another_object.pos_y+another_object.footprint[1]
+        if player_pos_x < another_object_pos_x+another_object.footprint[2] and player_pos_x+self.footprint[2] > another_object_pos_x:
+            if player_pos_y < another_object_pos_y+another_object.footprint[3] and player_pos_y+self.footprint[3] > another_object_pos_y:
                 return True
         return False
         
