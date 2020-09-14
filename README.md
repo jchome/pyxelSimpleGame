@@ -7,6 +7,7 @@ My first simple game with Pyxel
 * Some sprites
 * Collision detection ++
 * Sprite of character
+* Footprint for better integration
 
 ## Todo
 * Map mapping with tiles
