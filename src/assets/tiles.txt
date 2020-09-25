@@ -1,0 +1,25 @@
+# Tiles of 8x8 pixels
+# " " (space) = nothing
+# 160x120 pixels = 15 lines x 20 cols
+[OBJECTS]
+B=BUSH
+O=COIN
+@=COIN-BONUS
+F=FLOWER
+
+[TILES]
+BBBBBBBBBBBBBBBBBBBB
+B  O               B
+BBBBBBBBBBBBBB  BBBB
+BBBBBBBBBBBBBB  BBBB
+B            B     B
+B       O    B     B
+B            B      
+B            B     
+B                  B
+BBBBBBBBBBBBBBBBBBBB
+B                  B
+B                  
+B                  B
+B                  B
+BBBBBBBBBBBBBBBBBBBB

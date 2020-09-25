@@ -1,44 +1,53 @@
 
 import pyxel
-import yaml
 
 
 TRANSPARENT_COLOR = 15
 TILE_SIZE = 16
 
+
+
 class ObjectOnGame:
-    def __init__(self, sprite_name, pos_x=0, pos_y=0, loop_animation = True):
+    def __init__(self, sprite_name, object_data, pos_x=0, pos_y=0, loop_animation = True):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self._animation_flow = 0 # Float version of the animation step
         self.sprite_name = sprite_name
         self._is_visible = True
         self._sprites = []
-        self.init_with_key(sprite_name)
+        self.init_with_key(sprite_name, object_data)
         ## Moving during animation
         self.dx = 0
         self.dy = 0
+        
+    def init_with_key(self, key_name, object_data):
+        self.width = object_data["width"]
+        self.height = object_data["height"]
+        if "velocity" in object_data:
+            self.velocity = object_data["velocity"]
+        if "loop-animation" in object_data:
+            self._loop_animation = object_data["loop-animation"]
+        
+        if "footprint" in object_data:
+            self.footprint = self._get_coordinates(object_data["footprint"])
+        else:
+            self.footprint = (0,0,16,16) # default footprint
 
-    def init_with_key(self, key_name):
-        with open(r'src/assets/objects.yaml') as file:
-            #print("Loading %s..." % key_name)
-            object_data = yaml.load(file)[key_name]
-            self.width = object_data["width"]
-            self.height = object_data["height"]
-            if "velocity" in object_data:
-                self.velocity = object_data["velocity"]
-            if "loop-animation" in object_data:
-                self._loop_animation = object_data["loop-animation"]
-            
-            if "footprint" in object_data:
-                self.footprint = self._get_coordinates(object_data["footprint"])
-            else:
-                self.footprint = (0,0,16,16) # default footprint
+        if "wall" in object_data:
+            self.wall = object_data["wall"]
+        else:
+            self.wall = False
 
-            self._sprites = []
-            for coordinates_str in object_data["sprites"]:
-                coordinate_converted = self._get_coordinates(coordinates_str)
-                self._sprites.append(coordinate_converted)
+        if "bonus" in object_data:
+            self.bonus = object_data["bonus"]
+        else:
+            self.bonus = None
+        
+
+        self._sprites = []
+        for coordinates_str in object_data["sprites"]:
+            coordinate_converted = self._get_coordinates(coordinates_str)
+            self._sprites.append(coordinate_converted)
 
     @property
     def is_visible(self):

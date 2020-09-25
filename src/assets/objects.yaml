@@ -18,6 +18,7 @@ BUSH:
   width: 14
   height: 13
   footprint: 2,6,10,6
+  wall: True
 
 COIN:
   sprites:
@@ -30,6 +31,7 @@ COIN:
   velocity: 0.25
   loop-animation: True
   footprint: 0,0,10,10
+  bonus: COIN-BONUS
 
 COIN-BONUS:
   sprites:

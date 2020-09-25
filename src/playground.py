@@ -8,7 +8,7 @@ Created on Aug 5, 2020
 import pyxel
 from random import randrange
 
-from objectOnGame import ObjectOnGame
+#from objectOnGame import ObjectOnGame
 
 
 TILE_SIZE = 16
@@ -21,10 +21,10 @@ class PlayGround:
     def __init__(self):
         self.background_objects = []
 
-        flower = ObjectOnGame("FLOWER")
-        flower.pos_x = 5 * TILE_SIZE
-        flower.pos_y = 5 * TILE_SIZE
-        self.background_objects.append(flower)
+        #flower = ObjectOnGame("FLOWER")
+        #flower.pos_x = 5 * TILE_SIZE
+        #flower.pos_y = 5 * TILE_SIZE
+        #self.background_objects.append(flower)
 
         
     
