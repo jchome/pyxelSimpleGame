@@ -6,6 +6,7 @@ B=BUSH
 O=COIN
 @=COIN-BONUS
 F=FLOWER
+C=CACTUS
 
 [TILES]
 BBBBBBBBBBBBBBBBBBBB
@@ -14,12 +15,12 @@ BBBBBBBBBBBBBB  BBBB
 BBBBBBBBBBBBBB  BBBB
 B            B     B
 B       O    B     B
-B            B      
+B        C   B      
 B            B     
-B                  B
-BBBBBBBBBBBBBBBBBBBB
+B    F             B
+BBBBBBBBBB  BBBBBBBB
 B                  B
 B                  
-B                  B
+B       F          B
 B                  B
 BBBBBBBBBBBBBBBBBBBB

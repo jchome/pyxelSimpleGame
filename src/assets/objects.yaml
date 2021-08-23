@@ -5,12 +5,14 @@ DUST:
     - 35,64,12,8
   width: 16
   height: 16
+  interaction: False
 
 FLOWER:
   sprites:
     - 16,48,16,16
   width: 16
   height: 16
+  interaction: False
 
 BUSH:
   sprites:
@@ -19,6 +21,15 @@ BUSH:
   height: 13
   footprint: 2,6,10,6
   wall: True
+
+CACTUS:
+  sprites:
+    - 49,16,15,15
+  width: 15
+  height: 15
+  footprint: 2,6,10,6
+  wall: True
+  hit_player: True
 
 COIN:
   sprites:
@@ -32,6 +43,7 @@ COIN:
   loop-animation: True
   footprint: 0,0,10,10
   bonus: COIN-BONUS
+  interaction: True
 
 COIN-BONUS:
   sprites:
@@ -46,3 +58,14 @@ COIN-BONUS:
   height: 10
   velocity: 1
   loop-animation: False
+  interaction: True
+
+LIFE:
+  sprites:
+    - 0,115,16,13
+    - 0,131,16,13
+    - 0,147,16,13
+    - 0,163,16,13
+  width: 16
+  height: 12
+  interaction: False

@@ -21,13 +21,6 @@ class PlayGround:
     def __init__(self):
         self.background_objects = []
 
-        #flower = ObjectOnGame("FLOWER")
-        #flower.pos_x = 5 * TILE_SIZE
-        #flower.pos_y = 5 * TILE_SIZE
-        #self.background_objects.append(flower)
-
-        
-    
     def update(self):
         ## There is no interaction with these objects
         for simple_object in self.background_objects:

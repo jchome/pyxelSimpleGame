@@ -23,6 +23,7 @@ class Game:
         pyxel.load("assets/game.pyxres")
         self.walls = []
         self.interaction_objects = []
+        self.non_interaction_objects = []
 
         self.playground = PlayGround()
         ## Place the player on the playground
@@ -31,6 +32,7 @@ class Game:
         # Read all sprite data
         sprite_file = open(r'src/assets/objects.yaml')
         self.sprite_data = yaml.load(sprite_file)
+        self.life_sprite = ObjectOnGame("LIFE", self.sprite_data["LIFE"], 0, 0)
 
         self._read_tiles()
 
@@ -72,8 +74,10 @@ class Game:
                     sprite = ObjectOnGame(sprite_name, self.sprite_data[sprite_name], pos_x * TILE_SIZE, pos_y * TILE_SIZE)
                     if sprite.wall:
                         self.walls.append(sprite)
-                    else:
+                    elif sprite.interaction:
                         self.interaction_objects.append(sprite)
+                    else:
+                        self.non_interaction_objects.append(sprite)
                     pos_x = pos_x + 1
                 pos_y = pos_y + 1
 
@@ -105,8 +109,12 @@ class Game:
                     coin_bonus.pos_y = simple_object.pos_y
                     coin_bonus.dy = -2 ## Move to UP
                     self.playground.background_objects.append(coin_bonus)
-        
+
         self.player.update(self.walls)
+        if self.player.life > 1:
+            self.life_sprite.sprite_index = 4 - self.player.life
+        else:
+            self.life_sprite.sprite_index = 3
 
     """Draw objects in the screen
     """
@@ -115,12 +123,21 @@ class Game:
         self.playground.draw()
 
         ## Draw all objects ...
-        all_objects = self.interaction_objects + self.walls + self.playground.background_objects
+        all_objects = self.interaction_objects + self.walls + self.playground.background_objects + self.non_interaction_objects
         all_objects.append(self.player)
 
         ## ... BUT sorted by the position on the screen
         for an_object in sorted(all_objects, key=lambda obj: obj.pos_y + obj.footprint[1], reverse=False):
             an_object.draw()
     
-        
+        ## Draw the life of the user
+        self.life_sprite.draw()
+
+        if self.player.life <= 0:
+            pyxel.text(40, 40, "GAME OVER", 0)
+            pyxel.text(41, 40, "GAME OVER", 0)
+            pyxel.text(40, 41, "GAME OVER", 0)
+            pyxel.text(41, 41, "GAME OVER", 0)
+            pyxel.text(40, 40, "GAME OVER", 7)
+
 Game()
