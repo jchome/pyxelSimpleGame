@@ -49,11 +49,17 @@ class Player:
 
     def detect_wall(self, walls, old_x, old_y):
         for wall in walls:
+            if not wall.is_visible:
+                continue
+
             if self.detect_collision(wall):
-                if wall.hit_player is not None:
+                if wall.hit_player < 0:
                     self.pos_x = self.pos_x - ((self.pos_x - old_x) * 5)
                     self.pos_y = self.pos_y - ((self.pos_y - old_y) * 5)
                     self.damage()
+                elif wall.hit_player > 0:
+                    wall.is_visible = False
+                    self.cure()
                 else:
                     self.pos_x = old_x
                     self.pos_y = old_y
@@ -116,7 +122,6 @@ class Player:
     """Draw the player
     Use "pyxeleditor game.pyxres" to edit the player sprite
     """
-
     def draw(self):
         image_bank = 0
 
@@ -150,7 +155,6 @@ class Player:
 
     """Damage the player of a part of its life
     """
-
     def damage(self):
         # Reduce of 1 point of 4 (4 --> 3 --> 2 --> 1 --> 0)
         self.life -= 1
@@ -158,6 +162,10 @@ class Player:
         if self.life <= 0:
             self.life = 0
             self.direction = "DEAD"
+
+    def cure(self):
+        if self.life < 4:
+            self.life += 1
 
     def is_alive(self):
         return self.life > 0

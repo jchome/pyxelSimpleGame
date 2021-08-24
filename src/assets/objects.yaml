@@ -29,7 +29,7 @@ CACTUS:
   height: 15
   footprint: 2,6,10,6
   wall: True
-  hit_player: True
+  hit_player: -1
 
 COIN:
   sprites:
@@ -60,6 +60,16 @@ COIN-BONUS:
   loop-animation: False
   interaction: True
 
+CANDY:
+  sprites:
+    - 48,37,16,6
+  width: 16
+  height: 6
+  loop-animation: False
+  interaction: True
+  wall: True
+  hit_player: 1
+
 LIFE:
   sprites:
     - 0,115,16,13
@@ -68,4 +78,11 @@ LIFE:
     - 0,163,16,13
   width: 16
   height: 12
+  interaction: False
+
+GAME_OVER:
+  sprites:
+    - 64,0,62,32
+  width: 31
+  height: 16
   interaction: False

@@ -134,10 +134,7 @@ class Game:
         self.life_sprite.draw()
 
         if self.player.life <= 0:
-            pyxel.text(40, 40, "GAME OVER", 0)
-            pyxel.text(41, 40, "GAME OVER", 0)
-            pyxel.text(40, 41, "GAME OVER", 0)
-            pyxel.text(41, 41, "GAME OVER", 0)
-            pyxel.text(40, 40, "GAME OVER", 7)
+            game_over_sprite = ObjectOnGame("GAME_OVER", self.sprite_data["GAME_OVER"], 49,44)
+            game_over_sprite.draw()
 
 Game()

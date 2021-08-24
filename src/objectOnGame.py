@@ -19,7 +19,7 @@ class ObjectOnGame:
         self.dx = 0
         self.dy = 0
         self.sprite_index = 0
-        self.hit_player = None
+        self.hit_player = 0
         self.init_with_key(sprite_name, object_data)
         
     def init_with_key(self, key_name, object_data):
@@ -58,7 +58,7 @@ class ObjectOnGame:
         if "hit_player" in object_data:
             self.hit_player = object_data["hit_player"]
         else:
-            self.hit_player = None
+            self.hit_player = 0
         
         self._sprites = []
         for coordinates_str in object_data["sprites"]:

@@ -13,4 +13,5 @@ My first simple game with Pyxel
 ## Todo
 * More sprites
 
-![First screenshot](Screenshot-02.png)
+![Starting the game](Screenshot-01.png)
+![Cactus damages the player](Screenshot-02.png)

@@ -7,6 +7,7 @@ O=COIN
 @=COIN-BONUS
 F=FLOWER
 C=CACTUS
+*=CANDY
 
 [TILES]
 BBBBBBBBBBBBBBBBBBBB
@@ -21,6 +22,6 @@ B    F             B
 BBBBBBBBBB  BBBBBBBB
 B                  B
 B                  
-B       F          B
+B       F     *    B
 B                  B
 BBBBBBBBBBBBBBBBBBBB
